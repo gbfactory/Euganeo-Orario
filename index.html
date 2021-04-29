@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euganeo Orario</title>
     <meta name="description" content="Orario scolastico dell'IIS Euganeo di Este (PD)">
     <meta property="og:title" content="Euganeo Orario">
     <meta property="og:description" content="Orario scolastico dell'IIS Euganeo di Este (PD)">
@@ -63,8 +64,84 @@
                         <div class="info">
                             <div class="columns">
                                 <div class="column">
+                                    <div class="selettore-class">
+                                        <h4 class="title is-4">Seleziona la tua classe:</h4>
+                                        <div class="columns">
+                                            <div class="column">
+                                                <div class="field is-horizontal">
+                                                    <label class="label">Classe</label>
+                                                    <div class="control">
+                                                        <div class="select">
+                                                            <select id="classe">
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option>4</option>
+                                                                <option>5</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="column">
+                                                <div class="field is-horizontal">
+                                                    <label class="label">Sezione</label>
+                                                    <div class="control">
+                                                        <div class="select">
+                                                            <select id="sezione">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="column">
+                                                <div class="field is-horizontal">
+                                                    <label class="label">Indirizzo</label>
+                                                    <div class="control">
+                                                        <div class="select">
+                                                            <select id="indirizzo">
+                                                                <option>B</option>
+                                                                <option>E</option>
+                                                                <option>I</option>
+                                                                <option>M</option>
+                                                                <option>MF</option>
+                                                                <option>S</option>
+                                                                <option>SF</option>
+                                                                <option>L</option>
+                                                                <option>OF</option>
+                                                                <option>SF</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="column">
+
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <button class="button is-link" id="btnSelClasse">Seleziona</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="informazioni-class" style="display: none;">
+                                        <h4 class="title is-4">Hai selezionato la classe: <span id="spanClassName"></span></h4>
+                                        <button class="button is-danger" id="btnCambiaClasse">Cambia Classe</button>
+                                    </div>
+
+                                    <hr>
+
                                     <div class="info-generale">
-                                        <h4 class="title is-4">Orario di ingresso:</h4>
+                                        <h4 class="title is-4" id="spanOrari">Orari Generali</h4>
                                         <div class="tabs is-centered is-boxed is-normal">
                                             <ul>
                                                 <li class="is-active" id="turno1">
@@ -81,30 +158,54 @@
                                                         <span>8:55</span>
                                                     </a>
                                                 </li>
+                                                <li id="turnodad">
+                                                    <a>
+                                                        <span class="icon is-small"><i class="fas fa-desktop"
+                                                                aria-hidden="true"></i></span>
+                                                        <span>DAD</span>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="tabs-content">
-                                            <div id="content-t1">
-                                                <h5 class="title is-5"><i class="fas fa-sign-in-alt"></i> Ingresso: <b>7:55</b></h5>
-                                                <h5 class="title is-5"><i class="fas fa-mug-hot"></i> Intervallo: <b><span id="int-t1"></span></b></h5>
-                                                <h5 class="title is-5"><i class="fas fa-door-open"></i> Uscita: <b><span id="exit-t1"></span></b></h5>
+                                            <div id="turno1c">
+                                                <h5 class="title is-5"><i class="fas fa-sign-in-alt"></i> Ingresso:
+                                                    <b>7:55</b></h5>
+                                                <h5 class="title is-5"><i class="fas fa-mug-hot"></i> Intervallo:
+                                                    <b><span id="int-t1"></span></b></h5>
+                                                <h5 class="title is-5"><i class="fas fa-door-open"></i> Uscita: <b><span
+                                                            id="exit-t1"></span></b></h5>
                                             </div>
-                                            <div id="content-t2" style="display: none;">
-                                                <h5 class="title is-5"><i class="fas fa-sign-in-alt"></i> Ingresso: <b>8:55</b></h5>
-                                                <h5 class="title is-5"><i class="fas fa-mug-hot"></i> Intervallo: <b><span id="int-t2"></span></b></h5>
-                                                <h5 class="title is-5"><i class="fas fa-door-open"></i> Uscita: <b><span id="exit-t2"></span></b></h5>
+                                            <div id="turno2c" style="display: none;">
+                                                <h5 class="title is-5"><i class="fas fa-sign-in-alt"></i> Ingresso:
+                                                    <b>8:55</b></h5>
+                                                <h5 class="title is-5"><i class="fas fa-mug-hot"></i> Intervallo:
+                                                    <b><span id="int-t2"></span></b></h5>
+                                                <h5 class="title is-5"><i class="fas fa-door-open"></i> Uscita: <b><span
+                                                            id="exit-t2"></span></b></h5>
+                                            </div>
+                                            <div id="turnodadc" style="display: none;">
+                                                <h5 class="title is-5"><i class="fas fa-sign-in-alt"></i> Ingresso:
+                                                    <b>7:55</b></h5>
+                                                <h5 class="title is-5"><i class="fas fa-mug-hot"></i> Intervallo: // </h5>
+                                                <h5 class="title is-5"><i class="fas fa-door-open"></i> Uscita: <b><span
+                                                            id="exit-dad"></span></b></h5>
                                             </div>
                                         </div>
 
-                                        <div class="notification is-danger is-light mt-5">
-                                            Gli <b>STUDENTI DI CLASSE QUINTA</b> entreranno sempre alla prima ora ed usciranno
-                                            sempre all’ultima ora, fatte salve le eccezioni che riguardano alcune
-                                            discipline che si
-                                            svolgono esclusivamente in orario pomeridiano.
-                                        </div>
+                                    </div>
 
-                                        <a href="">
-                                            <div class="media">
+                                </div>
+                                <hr>
+                                <div class="column">
+                                    <div class="info-extra">
+
+                                        <div class="ecce"></div>
+
+                                        <hr>
+                                        
+                                        <a href="https://app.box.com/s/gq7lget1egkb2w7jpd4qdcaljfns9zvh" target="_blank">
+                                            <div class="media mt-3">
                                                 <div class="media-left">
                                                     <i class="far fa-file-pdf" style="font-size: 45px;"></i>
                                                 </div>
@@ -115,7 +216,7 @@
                                             </div>
                                         </a>
 
-                                        <a href="">
+                                        <a href="https://app.box.com/s/km9cdh9s26ull2lbv8rvxoi6uroqvpat" target="_blank">
                                             <div class="media mt-4">
                                                 <div class="media-left">
                                                     <i class="far fa-file-pdf" style="font-size: 45px;"></i>
@@ -127,70 +228,6 @@
                                             </div>
                                         </a>
 
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="column">
-                                    <div class="selettore-class">
-                                        <h4 class="title is-4">Seleziona la tua classe per altre info:</h4>
-                                        <div class="field">
-                                            <label class="label">Classe</label>
-                                            <div class="control">
-                                                <div class="select">
-                                                    <select id="classe">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="field">
-                                            <label class="label">Sezione</label>
-                                            <div class="control">
-                                                <div class="select">
-                                                    <select id="sezione">
-                                                        <option>A</option>
-                                                        <option>B</option>
-                                                        <option>C</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="field">
-                                            <label class="label">Indirizzo</label>
-                                            <div class="control">
-                                                <div class="select">
-                                                    <select id="indirizzo">
-                                                        <option>B</option>
-                                                        <option>E</option>
-                                                        <option>I</option>
-                                                        <option>M</option>
-                                                        <option>MF</option>
-                                                        <option>S</option>
-                                                        <option>SF</option>
-                                                        <option>L</option>
-                                                        <option>OF</option>
-                                                        <option>SF</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="field">
-                                            <div class="control">
-                                                <button class="button is-link" id="sel-class">Seleziona</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="informazioni-class" style="display: none;">
-                                        <button onclick="cambiaClasse()" class="button is-danger">Cambia Classe</button>
-                                        <h4 class="title is-4" id="infoclass"></h4>
                                     </div>
                                 </div>
                             </div>
@@ -298,155 +335,27 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-<script>
-    const gruppi = {
-        "1AB": "A2",
-        "3AB": "B1",
-        "1AE": "A1",
-        "3AE": "A2",
-        "1AI": "B1",
-        "3AI": "A2",
-        "1AM": "A1",
-        "3AM": "A1",
-        "1AMF": "A1",
-        "3AMF": "A2",
-        "1AS": "B1",
-        "3AS": "B2",
-        "1ASF": "B2",
-        "3ASF": "A2",
-        "1BI": "B2",
-        "3BI": "B2",
-        "1BM": "B1",
-        "3BM": "A2",
-        "1BMF": "A1",
-        "3BMF": "B2",
-        "1CI": "B1",
-        "3BS": "B2",
-        "2AB": "A2",
-        "4AB": "B1",
-        "2AE": "A1",
-        "4AE": "A1",
-        "2AI": "B1",
-        "4AI": "A2",
-        "2AL": "A2",
-        "4AM": "B2",
-        "2AM": "B2",
-        "4AMF": "B1",
-        "4AMF1": "4AMF1",
-        "4AMF2": "4AMF2",
-        "2AMF": "B2",
-        "2AMF1": "2AMF1",
-        "2AMF2": "2AMF2",
-        "4AOF": "B1",
-        "2AOF": "B1",
-        "4AS": "A2",
-        "4AS1": "4AS1",
-        "4AS2": "4AS2",
-        "2ASF": "A2",
-        "4ASF": "A1",
-        "2BB": "A1",
-        "4BI": "A1",
-        "2BI": "B1",
-        "4BM": "B2",
-        "2BM": "B2",
-        "4BS": "B1"
-    }
-
-    const turni = {
-        "A1": {
-            "2904": "ET2",
-            "3004": "DAD",
-            "0105": "VAC",
-            "0305": "ET1",
-            "0405": "ET1",
-            "0505": "DAD",
-            "0605": "DAD",
-            "0705": "ET2",
-            "0805": "ET2",
-            "1005": "DAD",
-            "1105": "DAD",
-            "1205": "ET1",
-            "1305": "ET1",
-            "1405": "DAD",
-            "1505": "DAD"
-        },
-        "B1": {
-            "2904": "DAD",
-            "3004": "ET2",
-            "0105": "VAC",
-            "0305": "DAD",
-            "0405": "DAD",
-            "0505": "ET1",
-            "0605": "ET1",
-            "0705": "DAD",
-            "0805": "DAD",
-            "1005": "ET2",
-            "1105": "ET2",
-            "1205": "DAD",
-            "1305": "DAD",
-            "1405": "ET1",
-            "1505": "ET1"
-        },
-        "A2": {
-            "2904": "ET1",
-            "3004": "DAD",
-            "0105": "VAC",
-            "0305": "ET2",
-            "0405": "ET2",
-            "0505": "DAD",
-            "0605": "DAD",
-            "0705": "ET1",
-            "0805": "ET1",
-            "1005": "DAD",
-            "1105": "DAD",
-            "1205": "ET2",
-            "1305": "ET2",
-            "1405": "DAD",
-            "1505": "DAD"
-        },
-        "B2": {
-            "2904": "DAD",
-            "3004": "ET1",
-            "0105": "VAC",
-            "0305": "DAD",
-            "0405": "DAD",
-            "0505": "ET2",
-            "0605": "ET2",
-            "0705": "DAd",
-            "0805": "DAD",
-            "1005": "ET1",
-            "1105": "ET1",
-            "1205": "DAD",
-            "1305": "DAD",
-            "1405": "ET2",
-            "1505": "ET2"
-        }
-    }
-</script>
+<script type="text/javascript" src="gruppi.js"></script>
+<script type="text/javascript" src="turni.js"></script>
 
 <script>
-    var mesi = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
-    var days = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+    const mesi = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+    const giorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
 
     let codiceOdierno = zero(new Date().getDate()) + zero(new Date().getMonth() + 1);
 
-    let ggSel = codiceOdierno;
-    let nnSel = days[new Date().getDay()].slice(0, 3).toUpperCase();
+    let codSel = codiceOdierno;
+    let daySel = giorni[new Date().getDay()].slice(0, 3).toUpperCase();
 
-    let clSel;
+    let classeSel;
     let turnoSel;
 
-    let bottone = false;
+    let btnAttivo = false;
 
-    function zero(num) {
-        return ("0" + num).slice(-2);
-    }
-
-
-    for (var d = new Date(2021, 3, 25); d <= new Date(2021, 5, 8); d.setDate(d.getDate() + 1)) {
+    for (let d = new Date(2021, 3, 26); d <= new Date(2021, 5, 5); d.setDate(d.getDate() + 1)) {
         let date = d.getDate();
         let month = d.getMonth();
-        let nomeGiorno = days[d.getDay()];
+        let nomeGiorno = giorni[d.getDay()];
         let nomeMese = mesi[month];
 
         let active = "";
@@ -500,100 +409,192 @@
     updateInfo();
 
     $('.box').click(function () {
-        ggSel = $(this).data("cod");
-        nnSel = $(this).data("day");
+        codSel = $(this).data("cod");
+        daySel = $(this).data("day");
 
-        if (nnSel === "DOM") return;
+        if (daySel === "DOM") return;
 
         $('.box').removeClass('box-active');
         $(this).addClass('box-active');
 
         updateInfo();
 
-        if (bottone) updateClasse();
+        if (btnAttivo) {
+            updateClasse();
+            eccezioni();
+        }
     });
 
-    $('#turno1').click(function () {
-        $('#turno1').addClass('is-active');
-        $('#turno2').removeClass('is-active');
-        $('#content-t1').css('display', 'block');
-        $('#content-t2').css('display', 'none');
-    })
-
-    $('#turno2').click(function () {
-        $('#turno2').addClass('is-active');
-        $('#turno1').removeClass('is-active');
-        $('#content-t2').css('display', 'block');
-        $('#content-t1').css('display', 'none');
-    })
-
-    $('#sel-class').click(function () {
+    // Bottone di selezione classe
+    $('#btnSelClasse').click(function () {
         let classe = $("#classe").val();
         let sezione = $("#sezione").val();
         let indirizzo = $("#indirizzo").val();
 
         let cl = classe + sezione + indirizzo;
 
+        if (classe == "5") {
+            return alert('Gli studenti di classe quinta sono al 100% in presenza ed entreranno sempre alla prima ora ed usciranno sempre all’ultima ora.');
+        }
+
         if (gruppi.hasOwnProperty(cl)) {
-            bottone = true;
-            clSel = cl;
+            btnAttivo = true;
+            classeSel = cl;
             turnoSel = gruppi[cl];
 
             updateClasse();
-
+            eccezioni();
         } else {
             alert(`La classe ${cl} non esiste!`);
         }
     })
 
+    // Bottone rimuovi selezione classe
+    $('#btnCambiaClasse').click(function() {
+        $('.selettore-class').css('display', 'block');
+        $('.informazioni-class').css('display', 'none');
+        btnAttivo = false;
+    })
+
+    // Gestione tab (potrebbe essere ottimizzata...)
+    $('#turno1').click(function () {
+        attivaTurno1();
+    })
+
+    $('#turno2').click(function () {
+        attivaTurno2();
+    })
+
+    $('#turnodad').click(function() {
+        attivaTurnoDad();
+    })
+
+    // Aggiorna le informazioni in base al giorno
     function updateInfo() {
-        if (nnSel === "LUN" || nnSel === "MER" || nnSel === "VEN") {
+        if (daySel === "LUN" || daySel === "MER" || daySel === "VEN") {
             $('#int-t1').html('dalle 10:20 alle 10:35');
             $('#int-t2').html('dalle 11:10 alle 11:25');
             $('#exit-t1').html('12:15');
             $('#exit-t2').html('13:15');
-        } else if (nnSel === "MER" || nnSel === "GIO") {
+            $('#exit-dad').html('13:15');
+        } else if (daySel === "MER" || daySel === "GIO") {
             $('#int-t1').html('dalle 9:55 alle 10:10');
             $('#int-t2').html('dalle 10:55 alle 11:10');
             $('#exit-t1').html('11:55');
             $('#exit-t2').html('12:55');
-        } else if (nnSel === "SAB") {
+            $('#exit-dad').html('12:55');
+        } else if (daySel === "SAB") {
             $('#int-t1').html('dalle 9:55 alle 10:10');
             $('#int-t2').html('dalle 10:55 alle 11:10');
             $('#exit-t1').html('10:55');
             $('#exit-t2').html('11:55 (12:55 per le 2°)');
+            $('#exit-dad').html('11:55 (12:55 per le 2°)');
         }
     }
 
+    // Aggiorna le informazioni sulla classe in base al giorno
     function updateClasse() {
-        if (turnoSel && turni[turnoSel].hasOwnProperty(ggSel)) {
-            let cod = turni[turnoSel][ggSel];
+        if (turnoSel && turni[turnoSel].hasOwnProperty(codSel)) {
+            let cod = turni[turnoSel][codSel];
 
             $('.selettore-class').css('display', 'none');
             $('.informazioni-class').css('display', 'block');
-            
-            let messaggio
+
+            $('#spanClassName').html(classeSel);
+
+            let messaggio;
             if (cod === 'ET1') {
-                messaggio = 'La classe entra alle ore 7:55';
+                messaggio = 'In presenza dalle 7:55';
+                attivaTurno1();
             } else if (cod === 'ET2') {
-                messaggio = 'La classe entra alle ore 8:55';
+                messaggio = 'In presenza dalle 8:55';
+                attivaTurno2();
             } else if (cod === 'DAD') {
-                messaggio = 'La classe è in DIDATTICA A DISTANZA';
+                messaggio = 'In Didattica a Distanza';
+                attivaTurnoDad();
             } else if (cod === 'VAC') {
-                messaggio = 'Vacanza';
+                messaggio = 'In Vacanza!';
             } else {
-                messaggio = '';
+                messaggio = '?';
             }
 
-            $("#infoclass").html(messaggio);
+            $('#spanOrari').html(messaggio);
         }
     }
+    
+    function attivaTurno1() {
+        $('#turno1').addClass('is-active');
+        $('#turno2, #turnodad').removeClass('is-active');
+        $('#turno1c').css('display', 'block');
+        $('#turno2c, #turnodadc').css('display', 'none');
+    }
 
-    function cambiaClasse() {
-        $('.selettore-class').css('display', 'block');
-        $('.informazioni-class').css('display', 'none');
-        bottone = false;
+    function attivaTurno2() {
+        $('#turno2').addClass('is-active');
+        $('#turno1, #turnodad').removeClass('is-active');
+        $('#turno2c').css('display', 'block');
+        $('#turno1c, #turnodadc').css('display', 'none');
+    }
+
+    function attivaTurnoDad() {
+        $('#turnodad').addClass('is-active');
+        $('#turno1, #turno2').removeClass('is-active');
+        $('#turnodadc').css('display', 'block');
+        $('#turno1c, #turno2c').css('display', 'none');
+    }
+
+    function eccezioni() {
+        e = [];
+
+        if (daySel == "LUN") {
+            if (classeSel == "2AB" || classeSel == "2AMF" || classeSel == "2AOF") e.push('Entrata alle 7:55');
+            if (classeSel == "1AMF") e.push('Uscita dopo ultima ora');
+        } else if (daySel == "MAR") {
+            if (classeSel == "1AMF" || classeSel == "2AMF" || classeSel == "2AOF") e.push('Entrata alle 7:55');
+            if (classeSel == "3AE" || classeSel == "4AB") e.push('Uscita dopo ultima ora');
+        } else if (daySel == "MER") {
+            if (classeSel == "4AS") e.push('Entrata alle 7:55');
+            if (classeSel == "4AE") e.push('Uscita dopo ultima ora');
+        } else if (daySel == "GIO") {
+            if (classeSel == "3BM") e.push('Entrata alle 7:55');
+            if (classeSel == "1AMF") e.push('Uscita dopo ultima ora');
+        } else if (daySel == "VEN") {
+            if (classeSel == "4AM") e.push('Entrata alle 7:55');
+            if (classeSel == "4BM") e.push('Uscita dopo ultima ora');
+        } else if (daySel == "SAB") {
+            if (classeSel == "2AOF" || classeSel == "3BS" || classeSel == "4BI") e.push('Entrata alle 7:55');
+            if (classeSel == "2AMF" || classeSel == "3AB" || classeSel == "4AI") e.push('Uscita dopo ultima ora');
+        }
+
+        if (classeSel == "2AMF" || classeSel == "4AMF" || classeSel == "4AS") {
+            e.push('la metà classe che rimane a casa svolge le attività asincrone assegnate dai docenti. Ad ogni inizio ora gli studenti sono tenuti a collegarsi per l’appello e per l’assegnazione delle attività. In caso contrario risulteranno assenti.');
+        }
+
+        $('.ecce').html(`<div class="notification is-success is-light"><b>Attenzione: </b> ${e}</div>`);
+    }
+
+    function zero(num) {
+        return ("0" + num).slice(-2);
     }
 </script>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (m, e, t, r, i, k, a) {
+        m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+        m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(76843108, "init", {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true
+    });
+</script>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/76843108" style="position:absolute; left:-9999px;" alt="" /></div>
+</noscript>
+<!-- /Yandex.Metrika counter -->
 
 </html>
