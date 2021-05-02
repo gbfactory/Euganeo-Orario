@@ -81,6 +81,7 @@ $('.box').click(function () {
     if (btnAttivo) {
         updateClasse();
         eccezioni();
+        orarioClasse();
     }
 });
 
@@ -92,10 +93,6 @@ $('#btnSelClasse').click(function () {
 
     let cl = classe + sezione + indirizzo;
 
-    if (classe == "5") {
-        return alert('Gli studenti di classe quinta sono al 100% in presenza ed entreranno sempre alla prima ora ed usciranno sempre all’ultima ora.');
-    }
-
     if (gruppi.hasOwnProperty(cl)) {
         btnAttivo = true;
         classeSel = cl;
@@ -103,13 +100,14 @@ $('#btnSelClasse').click(function () {
 
         updateClasse();
         eccezioni();
+        orarioClasse();
     } else {
         alert(`La classe ${cl} non esiste!`);
     }
 })
 
 // Bottone rimuovi selezione classe
-$('#btnCambiaClasse').click(function() {
+$('#btnCambiaClasse').click(function () {
     $('.selettore-class').css('display', 'block');
     $('.informazioni-class').css('display', 'none');
     btnAttivo = false;
@@ -124,7 +122,7 @@ $('#turno2').click(function () {
     attivaTurno2();
 })
 
-$('#turnodad').click(function() {
+$('#turnodad').click(function () {
     attivaTurnoDad();
 })
 
@@ -173,11 +171,45 @@ function updateClasse() {
             attivaTurnoDad();
         } else if (cod === 'VAC') {
             messaggio = 'In Vacanza!';
+        } else if (cod === '100') {
+            messaggio = 'Al 100% in presenza!';
+            attivaTurnoDad();
         } else {
             messaggio = '?';
         }
 
         $('#spanOrari').html(messaggio);
+    }
+}
+
+// Orario classe
+function orarioClasse() {
+    if (indice.hasOwnProperty(classeSel)) {
+        $.getJSON(`https://spreadsheets.google.com/feeds/cells/1FP_MO0qLgHBhhTGMOmJCLYSvq3s8y1S5K83iHJ1aC9w/${indice[classeSel]}/public/full?alt=json`, function (data) {
+            let i = 0;
+            const sheet = data.feed.entry;
+    
+            $('#orarioClasse').html('');
+            $('#orarioClasse').append('<tr>');
+    
+            sheet.forEach(d => {
+                let c = d.content.$t;
+    
+                if (!isNaN(c.charAt(0))) {
+                    $('#orarioClasse').append('</tr><tr>')
+                } else {
+                    let orario = orari[i] != undefined ? orari[i] : '';
+                    let materia = c.length === 3 ? `<b>${sett[c]}</b>` : (c === '.' ? '' : `<br>${c.split('-')[0]}`);
+                    let prof = c === '.' ? '' : (c.split('-')[1] != undefined ? `<br>${c.split('-')[1]}` : '');
+                    console.log(c)
+
+                    $('#orarioClasse').append(`<td id="${i}"> <b>${orario}</b> <span>${materia}</span> <i>${prof}</i> </td>`);
+                    i++;
+                }
+            })
+
+            $('#orarioClasse').append('</tr>');
+        });
     }
 }
 
@@ -237,10 +269,10 @@ function zero(num) {
 }
 
 if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function() {
-      navigator.serviceWorker
-        .register("/orario/serviceWorker.js")
-        .then(res => console.log("service worker registered"))
-        .catch(err => console.log("service worker not registered", err));
+    window.addEventListener("load", function () {
+        navigator.serviceWorker
+            .register("/orario/serviceWorker.js")
+            .then(res => console.log("service worker registered"))
+            .catch(err => console.log("service worker not registered", err));
     });
-  }
+}

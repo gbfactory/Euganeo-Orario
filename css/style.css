@@ -49,3 +49,7 @@ body, html {
     padding-bottom: 8px;
     font-size: 0.9rem;
 }
+
+.orario-classe td {
+    text-align: center !important;
+}
