@@ -11,6 +11,8 @@ let turnoSel;
 
 let btnAttivo = false;
 
+let slidesCounter = 0;
+
 for (let d = new Date(2021, 3, 26); d <= new Date(2021, 5, 5); d.setDate(d.getDate() + 1)) {
     let date = d.getDate();
     let month = d.getMonth();
@@ -29,12 +31,17 @@ for (let d = new Date(2021, 3, 26); d <= new Date(2021, 5, 5); d.setDate(d.getDa
             <span class="box-settimana">${nomeGiorno}</span>
         </div>
     `)
+
+    if (d <= new Date()) {
+        slidesCounter++;
+    }
 }
 
 const swiper = new Swiper('.swiper-container', {
     // Optional parameters
     slidesPerView: 10,
     spaceBetween: 15,
+    initialSlide: slidesCounter - 3,
 
     // Navigation arrows
     navigation: {
