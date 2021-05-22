@@ -53,3 +53,13 @@ body, html {
 .orario-classe td {
     text-align: center !important;
 }
+
+.rtvSel {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0 !important;
+}
+
+.navbar-item img {
+    max-height: 2.5rem !important;
+}

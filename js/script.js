@@ -88,6 +88,7 @@ $('.box').click(function () {
     if (btnAttivo) {
         updateClasse();
         eccezioni();
+        sentinella();
         orarioClasse();
     }
 });
@@ -107,6 +108,7 @@ $('#btnSelClasse').click(function () {
 
         updateClasse();
         eccezioni();
+        sentinella();
         orarioClasse();
     } else {
         alert(`La classe ${cl} non esiste!`);
@@ -208,7 +210,7 @@ function orarioClasse() {
                     let orario = orari[i] != undefined ? orari[i] : '';
                     let materia = c.length === 3 ? `<b>${sett[c]}</b>` : (c === '.' ? '' : `<br>${c.split('-')[0]}`);
                     let prof = c === '.' ? '' : (c.split('-')[1] != undefined ? `<br>${c.split('-')[1]}` : '');
-                    console.log(c)
+                    // console.log(c)
 
                     $('#orarioClasse').append(`<td id="${i}"> <b>${orario}</b> <span>${materia}</span> <i>${prof}</i> </td>`);
                     i++;
@@ -268,18 +270,44 @@ function eccezioni() {
         e.push('la metà classe che rimane a casa svolge le attività asincrone assegnate dai docenti. Ad ogni inizio ora gli studenti sono tenuti a collegarsi per l’appello e per l’assegnazione delle attività. In caso contrario risulteranno assenti.');
     }
 
-    $('.ecce').html(`<div class="notification is-success is-light"><b>Attenzione: </b> ${e}</div>`);
+    if (e.length > 0) {
+        $('.ecce').html(`<div class="notification is-success is-light"><b>Attenzione: </b> ${e}</div>`);
+    } else {
+        $('.ecce').html('');
+    }
+
+    // assemblea studentesca
+    if (codSel == '0506') {
+        console.log('ciaop')
+        $('.assemblea').html(`<div class="notification is-warning is-light"><b>Assemblea Generale Studentesca</b> dalle ore 07:55 alle ore 12:15, tutte le classi saranno online.</div>`);
+    } else {
+        $('.assemblea').html('');
+    }
+}
+
+npPresenza1 = ["2AE", "2BB", "2AL", "2AB", "1AMF", "1BMF"];
+npPresenza2 = ["3AM", "3AE", "3BM", "3AI", "4AI"];
+npDistanza = ["4AM", "2BM", "2AM", "4BM", "2AI", "2BI", "3BI"];
+
+function sentinella() {
+    if (codSel == '2805') {
+        if (npPresenza1.includes(classeSel)) {
+            $('.sentinella').html(`<div class="notification is-danger is-light"><b>Progetto Sentinella: </b>classe in presenza non prevista dalle ore 7:55 alle ore 12:15</div>`);
+            attivaTurno1();
+        } else if (npPresenza2.includes(classeSel)) {
+            $('.sentinella').html(`<div class="notification is-danger is-light"><b>Progetto Sentinella: </b>classe in presenza non prevista dalle ore 8:55 alle ore 13:15</div>`);
+            attivaTurno2();
+        } else if (npDistanza.includes(classeSel)) {
+            $('.sentinella').html(`<div class="notification is-danger is-light"><b>Progetto Sentinella: </b>classe in didattica a distanza non prevista</div>`);
+            attivaTurnoDad();
+        } else {
+            $('.sentinella').html('');
+        }
+    } else {
+        $('.sentinella').html('');
+    }
 }
 
 function zero(num) {
     return ("0" + num).slice(-2);
-}
-
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function () {
-        navigator.serviceWorker
-            .register("/orario/serviceWorker.js")
-            .then(res => console.log("service worker registered"))
-            .catch(err => console.log("service worker not registered", err));
-    });
 }
