@@ -13,6 +13,7 @@
 
 body, html {
     background-color: rgb(235, 238, 243);
+    overflow-x: hidden;
 }
 
 .box {
@@ -21,6 +22,10 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.reset-cursore {
+    cursor: default;
 }
 
 .box-active {
@@ -62,4 +67,11 @@ body, html {
 
 .navbar-item img {
     max-height: 2.5rem !important;
+}
+
+.lezione {
+    padding: .1rem .5rem;
+    border: solid 1px gray;
+    border-radius: 6px;
+    margin-bottom: .5rem;
 }

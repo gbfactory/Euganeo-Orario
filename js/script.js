@@ -1,47 +1,45 @@
 const mesi = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
 const giorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
 
-let codiceOdierno = zero(new Date().getDate()) + zero(new Date().getMonth() + 1);
+let dataOdierna = new Date().toLocaleDateString().replace('/', '-');
+let dataSelezionata = dataOdierna;
 
-let codSel = codiceOdierno;
-let daySel = giorni[new Date().getDay()].slice(0, 3).toUpperCase();
+let giornoSelezionato = 0;
 
-let classeSel;
-let turnoSel;
-
-let btnAttivo = false;
-
+// Contatore slide (utilizzato per offset prima slide selezionata).
 let slidesCounter = 0;
 
-for (let d = new Date(2021, 3, 26); d <= new Date(2021, 5, 5); d.setDate(d.getDate() + 1)) {
-    let date = d.getDate();
-    let month = d.getMonth();
-    let nomeGiorno = giorni[d.getDay()];
-    let nomeMese = mesi[month];
+// Ciclo per le date da visualizzare
+for (let d = new Date(2021, 8, 26); d <= new Date(2022, 5, 5); d.setDate(d.getDate() + 1)) {
+    const date = d.getDate();
+    const month = d.getMonth();
+    const nomeGiorno = giorni[d.getDay()];
+    const nomeMese = mesi[month];
+    const dataIso = d.toLocaleDateString().replace('/', '-');
 
-    let active = "";
-    if (zero(date) + zero(month + 1) === codiceOdierno) {
-        active = "box-active";
-    }
+    // Determina se la box è del giorno corrente
+    const attiva = dataIso === dataOdierna ? 'box-active' : '';
+    const resetCursore = d.getDay() === 0 ? 'reset-cursore' : '';
 
+    // Aggiunge box data
     $('.swiper-wrapper').append(`
-        <div class="box ${active} swiper-slide" data-cod="${zero(date)}${zero(month + 1)}" data-day="${nomeGiorno.slice(0, 3).toUpperCase()}">
-            <span class="box-mese">${nomeMese.toUpperCase()}</span>
+        <div class="box ${attiva} swiper-slide ${resetCursore}" data-day="${d.getDay()}" data-date="${dataIso}">
+            <span class="box-mese">${nomeGiorno.toUpperCase()}</span>
             <span class="box-giorno">${date}</span>
-            <span class="box-settimana">${nomeGiorno}</span>
+            <span class="box-settimana">${nomeMese}</span>
         </div>
-    `)
+    `);
 
-    if (d <= new Date()) {
-        slidesCounter++;
-    }
+    // Incrementa il contatore delle slide
+    if (d <= new Date()) slidesCounter++;
 }
 
+// Inizializzatore slider
 const swiper = new Swiper('.swiper-container', {
     // Optional parameters
     slidesPerView: 10,
     spaceBetween: 15,
-    initialSlide: slidesCounter - 3,
+    initialSlide: slidesCounter - 2,
 
     // Navigation arrows
     navigation: {
@@ -72,242 +70,141 @@ const swiper = new Swiper('.swiper-container', {
     }
 });
 
-updateInfo();
+// Inizializzazione
+if (!localStorage.getItem('classe')) {
+    $('#classeSelezionata').hide();
 
+    $('#orarioClasse').hide();
+} else {
+    $('#nomeClasseSelezionata').html(localStorage.getItem('classe'));
+    $('#selezionaClasse').hide();
+
+    $('#orarioIndefinito').hide();
+}
+
+$('.js-example-basic-single').select2();
+
+aggiorna();
+
+// Click sulle date
 $('.box').click(function () {
-    codSel = $(this).data("cod");
-    daySel = $(this).data("day");
+    if (!localStorage.getItem('classe')) {
+        return Swal.fire({
+            title: 'Attenzione!',
+            text: `Prima di visualizzare l'orario devi selezionare una classe!`,
+            icon: 'warning',
+        })
+    };
 
-    if (daySel === "DOM") return;
+    // Impedisce il click sulla DOMENICA
+    if ($(this).data("day") === 0) return;
 
+    // Cambia la data attiva
+    giornoSelezionato = $(this).data("day");
+
+    // Cambia la box attiva
     $('.box').removeClass('box-active');
     $(this).addClass('box-active');
 
-    updateInfo();
-
-    if (btnAttivo) {
-        updateClasse();
-        eccezioni();
-        sentinella();
-        orarioClasse();
-    }
+    // Aggiorna i dati della classe
+    aggiorna();
 });
 
 // Bottone di selezione classe
 $('#btnSelClasse').click(function () {
-    let classe = $("#classe").val();
-    let sezione = $("#sezione").val();
-    let indirizzo = $("#indirizzo").val();
+    const inputClasse = $("#classe").val();
 
-    let cl = classe + sezione + indirizzo;
+    if (orario.hasOwnProperty(inputClasse)) {
+        localStorage.setItem('classe', inputClasse);
 
-    if (gruppi.hasOwnProperty(cl)) {
-        btnAttivo = true;
-        classeSel = cl;
-        turnoSel = gruppi[cl];
+        $('#nomeClasseSelezionata').html(inputClasse);
 
-        updateClasse();
-        eccezioni();
-        sentinella();
-        orarioClasse();
+        $('#classeSelezionata').show();
+        $('#selezionaClasse').hide();
+
+        $('#orarioClasse').show();
+        $('#orarioIndefinito').hide();
+
+        aggiorna();
     } else {
-        alert(`La classe ${cl} non esiste!`);
+        Swal.fire({
+            title: 'Errore!',
+            text: `La classe ${inputClasse} non esiste!`,
+            icon: 'error',
+        })
     }
 })
 
 // Bottone rimuovi selezione classe
 $('#btnCambiaClasse').click(function () {
-    $('.selettore-class').css('display', 'block');
-    $('.informazioni-class').css('display', 'none');
-    btnAttivo = false;
-})
+    localStorage.removeItem('classe');
 
-// Gestione tab (potrebbe essere ottimizzata...)
-$('#turno1').click(function () {
-    attivaTurno1();
-})
+    $('#classeSelezionata').hide();
+    $('#selezionaClasse').show();
 
-$('#turno2').click(function () {
-    attivaTurno2();
-})
+    $('#orarioClasse').hide();
+    $('#orarioIndefinito').show();
 
-$('#turnodad').click(function () {
-    attivaTurnoDad();
+    $('#tabellaOrario').html('');
+    $('#lezioniOdierne').html('');
 })
 
 // Aggiorna le informazioni in base al giorno
-function updateInfo() {
-    if (daySel === "LUN" || daySel === "MER" || daySel === "VEN") {
-        $('#int-t1').html('dalle 10:20 alle 10:35');
-        $('#int-t2').html('dalle 11:10 alle 11:25');
-        $('#exit-t1').html('12:15');
-        $('#exit-t2').html('13:15');
-        $('#exit-dad').html('13:15');
-    } else if (daySel === "MAR" || daySel === "GIO") {
-        $('#int-t1').html('dalle 9:55 alle 10:10');
-        $('#int-t2').html('dalle 10:55 alle 11:10');
-        $('#exit-t1').html('11:55');
-        $('#exit-t2').html('12:55');
-        $('#exit-dad').html('12:55');
-    } else if (daySel === "SAB") {
-        $('#int-t1').html('dalle 9:55 alle 10:10');
-        $('#int-t2').html('dalle 10:55 alle 11:10');
-        $('#exit-t1').html('10:55');
-        $('#exit-t2').html('11:55 (12:55 per le 2°)');
-        $('#exit-dad').html('11:55 (12:55 per le 2°)');
-    }
-}
+function aggiorna() {
+    if (!localStorage.getItem('classe')) return;
 
-// Aggiorna le informazioni sulla classe in base al giorno
-function updateClasse() {
-    if (turnoSel && turni[turnoSel].hasOwnProperty(codSel)) {
-        let cod = turni[turnoSel][codSel];
+    const classe = localStorage.getItem('classe');
+    const oggettoClasse = orario[classe];
 
-        $('.selettore-class').css('display', 'none');
-        $('.informazioni-class').css('display', 'block');
+    // Orario classe
+    $('#tabellaOrario').html('');
+    oggettoClasse.forEach(element => {
+        var riga = $('<tr></tr>');
 
-        $('#spanClassName').html(classeSel);
+        element.forEach(lez => {
+            if (lez.includes('-')) {
+                lez = `${lez.split('-')[0]}<br><i>${lez.split('-')[1]}</i>`;
+            }
 
-        let messaggio;
-        if (cod === 'ET1') {
-            messaggio = 'In presenza dalle 7:55';
-            attivaTurno1();
-        } else if (cod === 'ET2') {
-            messaggio = 'In presenza dalle 8:55';
-            attivaTurno2();
-        } else if (cod === 'DAD') {
-            messaggio = 'In Didattica a Distanza';
-            attivaTurnoDad();
-        } else if (cod === 'VAC') {
-            messaggio = 'In Vacanza!';
-        } else if (cod === '100') {
-            messaggio = 'Al 100% in presenza!';
-            attivaTurnoDad();
-        } else {
-            messaggio = '?';
-        }
+            riga.append(`<td>${lez}</td>`);
+        })
 
-        $('#spanOrari').html(messaggio);
-    }
-}
+        $('#tabellaOrario').append(riga);
+    })
 
-// Orario classe
-function orarioClasse() {
-    if (indice.hasOwnProperty(classeSel)) {
-        $.getJSON(`https://spreadsheets.google.com/feeds/cells/1FP_MO0qLgHBhhTGMOmJCLYSvq3s8y1S5K83iHJ1aC9w/${indice[classeSel]}/public/full?alt=json`, function (data) {
-            let i = 0;
-            const sheet = data.feed.entry;
-    
-            $('#orarioClasse').html('');
-            $('#orarioClasse').append('<tr>');
-    
-            sheet.forEach(d => {
-                let c = d.content.$t;
-    
-                if (!isNaN(c.charAt(0))) {
-                    $('#orarioClasse').append('</tr><tr>')
-                } else {
-                    let orario = orari[i] != undefined ? orari[i] : '';
-                    let materia = c.length === 3 ? `<b>${sett[c]}</b>` : (c === '.' ? '' : `<br>${c.split('-')[0]}`);
-                    let prof = c === '.' ? '' : (c.split('-')[1] != undefined ? `<br>${c.split('-')[1]}` : '');
-                    // console.log(c)
+    // Se è domenica non mostra l'orario
+    if (giornoSelezionato === 0) return;
 
-                    $('#orarioClasse').append(`<td id="${i}"> <b>${orario}</b> <span>${materia}</span> <i>${prof}</i> </td>`);
-                    i++;
-                }
-            })
+    // Informazioni orari ing / int / usc
+    const primaOra = oggettoClasse[1][giornoSelezionato];
+    const ultimaOra = oggettoClasse[6][giornoSelezionato];
 
-            $('#orarioClasse').append('</tr>');
-        });
-    }
-}
+    console.log(primaOra, ultimaOra);
 
-function attivaTurno1() {
-    $('#turno1').addClass('is-active');
-    $('#turno2, #turnodad').removeClass('is-active');
-    $('#turno1c').css('display', 'block');
-    $('#turno2c, #turnodadc').css('display', 'none');
-}
+    $('#orarioIngresso').html(primaOra === 'Entrata 8:45' ? '8:45' : '7:45');
+    $('#orarioIntervallo').html(primaOra === 'Entrata 8:45' ? '11:20 - 11:35' : '10:20 - 10:35');
+    $('#orarioUscita').html(ultimaOra === 'Uscita 12:25' ? '12:25' : '13:15');
 
-function attivaTurno2() {
-    $('#turno2').addClass('is-active');
-    $('#turno1, #turnodad').removeClass('is-active');
-    $('#turno2c').css('display', 'block');
-    $('#turno1c, #turnodadc').css('display', 'none');
-}
-
-function attivaTurnoDad() {
-    $('#turnodad').addClass('is-active');
-    $('#turno1, #turno2').removeClass('is-active');
-    $('#turnodadc').css('display', 'block');
-    $('#turno1c, #turno2c').css('display', 'none');
-}
-
-function eccezioni() {
-    e = [];
-
-    if (daySel == "LUN") {
-        if (classeSel == "2AB" || classeSel == "2AMF" || classeSel == "2AOF") e.push('Entrata alle 7:55');
-        if (classeSel == "1AMF") e.push('Uscita dopo ultima ora');
-    } else if (daySel == "MAR") {
-        if (classeSel == "1AMF" || classeSel == "2AMF" || classeSel == "2AOF") e.push('Entrata alle 7:55');
-        if (classeSel == "3AE" || classeSel == "4AB") e.push('Uscita dopo ultima ora');
-    } else if (daySel == "MER") {
-        if (classeSel == "4AS") e.push('Entrata alle 7:55');
-        if (classeSel == "4AE") e.push('Uscita dopo ultima ora');
-    } else if (daySel == "GIO") {
-        if (classeSel == "3BM") e.push('Entrata alle 7:55');
-        if (classeSel == "1AMF") e.push('Uscita dopo ultima ora');
-    } else if (daySel == "VEN") {
-        if (classeSel == "4AM") e.push('Entrata alle 7:55');
-        if (classeSel == "4BM") e.push('Uscita dopo ultima ora');
-    } else if (daySel == "SAB") {
-        if (classeSel == "2AOF" || classeSel == "3BS" || classeSel == "4BI") e.push('Entrata alle 7:55');
-        if (classeSel == "2AMF" || classeSel == "3AB" || classeSel == "4AI") e.push('Uscita dopo ultima ora');
-    }
-
-    if (classeSel == "2AMF" || classeSel == "4AMF" || classeSel == "4AS") {
-        e.push('la metà classe che rimane a casa svolge le attività asincrone assegnate dai docenti. Ad ogni inizio ora gli studenti sono tenuti a collegarsi per l’appello e per l’assegnazione delle attività. In caso contrario risulteranno assenti.');
-    }
-
-    if (e.length > 0) {
-        $('.ecce').html(`<div class="notification is-success is-light"><b>Attenzione: </b> ${e}</div>`);
-    } else {
-        $('.ecce').html('');
-    }
-
-    // assemblea studentesca
-    if (codSel == '0506') {
-        console.log('ciaop')
-        $('.assemblea').html(`<div class="notification is-warning is-light"><b>Assemblea Generale Studentesca</b> dalle ore 07:55 alle ore 12:15, tutte le classi saranno online.</div>`);
-    } else {
-        $('.assemblea').html('');
-    }
-}
-
-npPresenza1 = ["2AE", "2BB", "2AL", "2AB", "1AMF", "1BMF"];
-npPresenza2 = ["3AM", "3AE", "3BM", "3AI", "4AI"];
-npDistanza = ["4AM", "2BM", "2AM", "4BM", "2AI", "2BI", "3BI"];
-
-function sentinella() {
-    if (codSel == '2805') {
-        if (npPresenza1.includes(classeSel)) {
-            $('.sentinella').html(`<div class="notification is-danger is-light"><b>Progetto Sentinella: </b>classe in presenza non prevista dalle ore 7:55 alle ore 12:15</div>`);
-            attivaTurno1();
-        } else if (npPresenza2.includes(classeSel)) {
-            $('.sentinella').html(`<div class="notification is-danger is-light"><b>Progetto Sentinella: </b>classe in presenza non prevista dalle ore 8:55 alle ore 13:15</div>`);
-            attivaTurno2();
-        } else if (npDistanza.includes(classeSel)) {
-            $('.sentinella').html(`<div class="notification is-danger is-light"><b>Progetto Sentinella: </b>classe in didattica a distanza non prevista</div>`);
-            attivaTurnoDad();
-        } else {
-            $('.sentinella').html('');
-        }
-    } else {
-        $('.sentinella').html('');
-    }
+    // Orario del giorno
+    $('#lezioniOdierne').html('')
+    oggettoClasse.forEach(element => {
+        $('#lezioniOdierne').append(`<li class="lezione">${element[giornoSelezionato]}</li>`)
+    });
 }
 
 function zero(num) {
     return ("0" + num).slice(-2);
 }
+
+// Bottone info
+$('#bottoneInfo').click(function () {
+    Swal.fire({
+        title: 'Informazioni',
+        icon: 'info',
+        html:
+            'Sito web realizzato da <b>Giacomo Brochin</b> per gli studenti dell\'IIS Euganeo di Este <br><hr>' +
+            'Le informazioni presenti in questo sito sono ricavate dalle ultime circolari attraverso un software automatico, per tanto potrebbero presentare errori. Per sicurezza consulta sempre le circolari ufficiali presenti nella bacheca del registro elettronico.',
+        footer: 'Supporto e Feedback: <a href="mailto:info@gbfactory.net">info@gbfactory.net</a>',
+        showCloseButton: true,
+    })
+})

@@ -27,26 +27,34 @@
     <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@0ac23ca/css/all.css" rel="stylesheet"
         type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="bd-notice">
+    <!-- <div class="bd-notice">
         <div class="container">
             <div class="bd-notice-body">
-                <p>Ultimo aggiornamento: <b>giovedì 20 maggio 2021</b></p>
+                <p>Ultimo aggiornamento: <b>sabato 2 ottobre 2021</b></p>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <nav class="navbar has-shadow dark" role="navigation" aria-label="main navigation">
+    <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="https://orario.gbfactory.net/">
+                <a class="navbar-item" href="/">
                     <img src="./images/logo.png" alt="Logo Euganeo Orario">
                 </a>
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-info is-rounded" id="bottoneInfo">
+                            <i class="fas fa-question"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -54,228 +62,137 @@
     <main class="bd-main">
         <div class="container">
             <div class="section" style="padding-bottom: 1.5rem;">
-                <!-- Slider main container -->
                 <div class="swiper-container">
-                    <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
-                        <!-- Slides -->
+                        <!-- Slides date -->
                     </div>
-
-                    <!-- If we need navigation buttons -->
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
                 </div>
             </div>
 
             <div class="section" style="padding-top: 0;">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="info">
-                            <div class="columns">
-                                <div class="column">
-                                    <div class="selettore-class">
-                                        <h4 class="title is-4">Seleziona la tua classe:</h4>
-                                        <div class="columns">
-                                            <div class="column">
-                                                <div class="field is-horizontal">
-                                                    <label class="label mr-3 rtvSel">Classe</label>
-                                                    <div class="control">
-                                                        <div class="select">
-                                                            <select id="classe">
-                                                                <option>1</option>
-                                                                <option>2</option>
-                                                                <option>3</option>
-                                                                <option>4</option>
-                                                                <option>5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                <div class="columns">
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-content">
+                                <div id="selezionaClasse">
+                                    <h4 class="title is-4">Scegli la classe</h4>
 
-                                            </div>
-                                            <div class="column">
-                                                <div class="field is-horizontal">
-                                                    <label class="label mr-3 rtvSel">Sezione</label>
-                                                    <div class="control">
-                                                        <div class="select">
-                                                            <select id="sezione">
-                                                                <option>A</option>
-                                                                <option>B</option>
-                                                                <option>C</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <i>Apri il menu e seleziona la tua classe, oppure scrivila nella barra di
+                                        ricerca.</i>
 
-                                            <div class="column">
-                                                <div class="field is-horizontal">
-                                                    <label class="label mr-3 rtvSel">Indirizzo</label>
-                                                    <div class="control">
-                                                        <div class="select">
-                                                            <select id="indirizzo">
-                                                                <option>B</option>
-                                                                <option>E</option>
-                                                                <option>I</option>
-                                                                <option>M</option>
-                                                                <option>S</option>
-                                                                <option>L</option>
-                                                                <option>MF</option>
-                                                                <option>SF</option>
-                                                                <option>OF</option>
-                                                                <option>PF</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="column">
-
-                                                <div class="field">
-                                                    <div class="control">
-                                                        <button class="button is-link"
-                                                            id="btnSelClasse">Seleziona</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="informazioni-class" style="display: none;">
-                                        <h4 class="title is-4">Hai selezionato la classe: <span
-                                                id="spanClassName"></span></h4>
-                                        <button class="button is-danger" id="btnCambiaClasse">Cambia Classe</button>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="info-generale">
-                                        <h4 class="title is-4" id="spanOrari">Orari Generali</h4>
-                                        <div class="tabs is-centered is-boxed is-normal">
-                                            <ul>
-                                                <li class="is-active" id="turno1">
-                                                    <a>
-                                                        <span class="icon is-small"><i class="far fa-clock"
-                                                                aria-hidden="true"></i></span>
-                                                        <span>7:55</span>
-                                                    </a>
-                                                </li>
-                                                <li id="turno2">
-                                                    <a>
-                                                        <span class="icon is-small"><i class="far fa-clock"
-                                                                aria-hidden="true"></i></span>
-                                                        <span>8:55</span>
-                                                    </a>
-                                                </li>
-                                                <li id="turnodad">
-                                                    <a>
-                                                        <span class="icon is-small"><i class="fas fa-desktop"
-                                                                aria-hidden="true"></i></span>
-                                                        <span>DAD</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="tabs-content">
-                                            <div id="turno1c">
-                                                <h5 class="title is-5"><i class="fas fa-sign-in-alt"></i> Ingresso:
-                                                    <b>7:55</b>
-                                                </h5>
-                                                <h5 class="title is-5"><i class="fas fa-mug-hot"></i> Intervallo:
-                                                    <b><span id="int-t1"></span></b>
-                                                </h5>
-                                                <h5 class="title is-5"><i class="fas fa-door-open"></i> Uscita: <b><span
-                                                            id="exit-t1"></span></b></h5>
-                                            </div>
-                                            <div id="turno2c" style="display: none;">
-                                                <h5 class="title is-5"><i class="fas fa-sign-in-alt"></i> Ingresso:
-                                                    <b>8:55</b>
-                                                </h5>
-                                                <h5 class="title is-5"><i class="fas fa-mug-hot"></i> Intervallo:
-                                                    <b><span id="int-t2"></span></b>
-                                                </h5>
-                                                <h5 class="title is-5"><i class="fas fa-door-open"></i> Uscita: <b><span
-                                                            id="exit-t2"></span></b></h5>
-                                            </div>
-                                            <div id="turnodadc" style="display: none;">
-                                                <h5 class="title is-5"><i class="fas fa-sign-in-alt"></i> Ingresso:
-                                                    <b>7:55</b>
-                                                </h5>
-                                                <h5 class="title is-5"><i class="fas fa-mug-hot"></i> Intervallo: //
-                                                </h5>
-                                                <h5 class="title is-5"><i class="fas fa-door-open"></i> Uscita: <b><span
-                                                            id="exit-dad"></span></b></h5>
+                                    <div class="field">
+                                        <div class="control">
+                                            <div class="select is-medium is-multiple is-fullwidth">
+                                                <select class="js-example-basic-single" id="classe" name="classe">
+                                                    <option>1A</option>
+                                                    <option>1AMF</option>
+                                                    <option>1AOF</option>
+                                                    <option>1B</option>
+                                                    <option>1C</option>
+                                                    <option>1D</option>
+                                                    <option>1E</option>
+                                                    <option>1F</option>
+                                                    <option>1G</option>
+                                                    <option>2AB</option>
+                                                    <option>2AE</option>
+                                                    <option>2AI</option>
+                                                    <option>2AM</option>
+                                                    <option>2AMF</option>
+                                                    <option>2AS</option>
+                                                    <option>2ASF</option>
+                                                    <option>2BI</option>
+                                                    <option>2BM</option>
+                                                    <option>2BMF</option>
+                                                    <option>2CI</option>
+                                                    <option>3AM</option>
+                                                    <option>3AE</option>
+                                                    <option>3AI</option>
+                                                    <option>3AL</option>
+                                                    <option>3AM</option>
+                                                    <option>3AMF</option>
+                                                    <option>3AOF</option>
+                                                    <option>3AS</option>
+                                                    <option>3ASF</option>
+                                                    <option>3BI</option>
+                                                    <option>3BM</option>
+                                                    <option>3BS</option>
+                                                    <option>3CI</option>
+                                                    <option>4AB</option>
+                                                    <option>4AE</option>
+                                                    <option>4AI</option>
+                                                    <option>4AM</option>
+                                                    <option>4AMF</option>
+                                                    <option>4AS</option>
+                                                    <option>4ASF</option>
+                                                    <option>4BI</option>
+                                                    <option>4BS</option>
+                                                    <option>4BM</option>
+                                                    <option>4BMF</option>
+                                                    <option>5AB</option>
+                                                    <option>5AE</option>
+                                                    <option>5AI</option>
+                                                    <option>5AM</option>
+                                                    <option>5AMF</option>
+                                                    <option>5AOF</option>
+                                                    <option>5AS</option>
+                                                    <option>5ASF</option>
+                                                    <option>5BI</option>
+                                                    <option>5BM</option>
+                                                    <option>5BMS</option>
+                                                </select>
                                             </div>
                                         </div>
-
                                     </div>
 
-                                </div>
-                                <hr>
-                                <div class="column">
-                                    <div class="info-extra">
-
-                                        <div class="ecce"></div>
-                                        <div class="sentinella"></div>
-                                        <div class="assemblea"></div>
-
-                                        <hr>
-
-                                        <a href="https://app.box.com/s/iwaizabvlyiq1y0heht1x67ogcgv3tco" target="_blank"
-                                            rel="noreferrer">
-                                            <div class="media mt-3">
-                                                <div class="media-left">
-                                                    <i class="far fa-file-pdf" style="font-size: 45px;"></i>
-                                                </div>
-                                                <div class="media-content">
-                                                    <b>Leggi l'ultima Circolare</b>
-                                                    <p class="subtitle is-6">CD 307 del 5 maggio 2021</p>
-                                                </div>
-                                            </div>
-                                        </a>
-
-                                        <a href="https://app.box.com/s/km9cdh9s26ull2lbv8rvxoi6uroqvpat" target="_blank"
-                                            rel="noreferrer">
-                                            <div class="media mt-4">
-                                                <div class="media-left">
-                                                    <i class="far fa-file-pdf" style="font-size: 45px;"></i>
-                                                </div>
-                                                <div class="media-content">
-                                                    <b>Eccezione ai turni in presenza</b>
-                                                    <p class="subtitle is-6">Allegato alla CD 301</p>
-                                                </div>
-                                            </div>
-                                        </a>
-
-                                        <a href="https://app.box.com/s/5l8l13oy410wlrw8955te0ft2o8cchc8" target="_blank"
-                                            rel="noreferrer">
-                                            <div class="media mt-4">
-                                                <div class="media-left">
-                                                    <i class="far fa-file-pdf" style="font-size: 45px;"></i>
-                                                </div>
-                                                <div class="media-content">
-                                                    <b>Progetto Sentinella</b>
-                                                    <p class="subtitle is-6">CD 303 del 12 maggio 2021</p>
-                                                </div>
-                                            </div>
-                                        </a>
-
-                                        <a href="https://app.box.com/s/iaf2rsk9laabcly9i6vzxxprrdqoopgu" target="_blank"
-                                            rel="noreferrer">
-                                            <div class="media mt-4">
-                                                <div class="media-left">
-                                                    <i class="far fa-file-pdf" style="font-size: 45px;"></i>
-                                                </div>
-                                                <div class="media-content">
-                                                    <b>Adempimenti finali</b>
-                                                    <p class="subtitle is-6">CD 324 del 17 maggio 2021</p>
-                                                </div>
-                                            </div>
-                                        </a>
+                                    <div class="field">
+                                        <div class="control">
+                                            <button class="button is-link" id="btnSelClasse">Seleziona</button>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div id="classeSelezionata">
+                                    <h4 class="title is-4">Hai selezionato la classe: <span
+                                            id="nomeClasseSelezionata"></span>
+                                    </h4>
+                                    <button class="button is-danger" id="btnCambiaClasse">Cambia Classe</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-content">
+                                <h4 class="title is-4">Orario della classe</h4>
+
+                                <div id="orarioClasse">
+                                    <h5 class="title is-5">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        Ingresso: <span id="orarioIngresso"></span>
+                                    </h5>
+                                    <h5 class="title is-5"><i class="fas fa-mug-hot"></i>
+                                        Intervallo: <span id="orarioIntervallo"></span>
+                                    </h5>
+                                    <h5 class="title is-5"><i class="fas fa-door-open"></i>
+                                        Uscita: <span id="orarioUscita"></span>
+                                    </h5>
+                                </div>
+                                <div id="orarioIndefinito">
+                                    <i>Per visualizzare l'orario devi prima selezionare una classe utilizzando
+                                        l'apposito menu.</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-content">
+                                <h4 class="title is-4">Lezioni di oggi</h4>
+
+                                <ul id="lezioniOdierne">
+
+                                </ul>
+
                             </div>
                         </div>
                     </div>
@@ -289,8 +206,7 @@
                             <h3 class="title is-3">Orario</h3>
                             <div class="table-container">
                                 <table class="table is-bordered is-fullwidth">
-                                    <tbody id="orarioClasse" class="orario-classe">
-                                        <p>Seleziona una classe per visualizzarne l'orario.</p>
+                                    <tbody id="tabellaOrario" class="orario-classe">
                                     </tbody>
                                 </table>
                             </div>
@@ -304,7 +220,7 @@
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-                &copy; 2021 <strong>GB Factory</strong>
+                &copy; 2021 <strong>Giacomo Brochin</strong>
                 <br>
                 Sito web realizzato da <a href="https://giacomobrochin.com/">Giacomo Brochin</a>
             </p>
@@ -312,34 +228,13 @@
     </footer>
 </body>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<script type="text/javascript" src="js/gruppi.js"></script>
-<script type="text/javascript" src="js/turni.js"></script>
-<script type="text/javascript" src="js/indice.js"></script>
-<script type="text/javascript" src="js/orari.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
-
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-    (function (m, e, t, r, i, k, a) {
-        m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
-        m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-    })
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-    ym(76843108, "init", {
-        clickmap: true,
-        trackLinks: true,
-        accurateTrackBounce: true
-    });
-</script>
-<noscript>
-    <div><img src="https://mc.yandex.ru/watch/76843108" style="position:absolute; left:-9999px;" alt="" /></div>
-</noscript>
-<!-- /Yandex.Metrika counter -->
+<script src="./js/orario.js"></script>
+<script src="./js/script.js"></script>
 
 </html>
