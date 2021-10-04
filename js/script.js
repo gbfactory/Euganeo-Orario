@@ -173,7 +173,7 @@ function aggiorna() {
     })
 
     // Se è domenica non mostra l'orario
-    if (giornoSelezionato === 0) return;
+    // if (giornoSelezionato === 0) return;
 
     // Informazioni orari ing / int / usc
     const primaOra = oggettoClasse[1][giornoSelezionato];
