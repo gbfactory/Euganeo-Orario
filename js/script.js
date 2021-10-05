@@ -4,7 +4,7 @@ const giorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Ve
 let dataOdierna = new Date().toLocaleDateString().replace('/', '-');
 let dataSelezionata = dataOdierna;
 
-let giornoSelezionato = 0;
+let giornoSelezionato = new Date().getDay();
 
 // Contatore slide (utilizzato per offset prima slide selezionata).
 let slidesCounter = 0;
