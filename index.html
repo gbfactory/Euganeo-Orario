@@ -35,19 +35,17 @@
 
 <body>
     <!-- <div class="bd-notice">
-        <div class="container">
-            <div class="bd-notice-body">
-                <p>Ultimo aggiornamento: <b>sabato 2 ottobre 2021</b></p>
-            </div>
+        <div class="bd-notice-body">
+            Applicazione realizzata da <b>Giacomo Brochin</b><br>
         </div>
     </div> -->
 
     <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="/">
-                    <img src="./images/logo.png" alt="Logo Euganeo Orario">
-                </a>
+                <div class="navbar-item">
+                    <img src="./images/logo_nome.png" alt="Logo Euganeo Orario">
+                </div>
                 <div class="navbar-item">
                     <div class="buttons">
                         <a class="button is-info is-rounded" id="bottoneInfo">
@@ -104,7 +102,7 @@
                                                     <option>2BM</option>
                                                     <option>2BMF</option>
                                                     <option>2CI</option>
-                                                    <option>3AM</option>
+                                                    <option>3AB</option>
                                                     <option>3AE</option>
                                                     <option>3AI</option>
                                                     <option>3AL</option>
@@ -125,9 +123,9 @@
                                                     <option>4AS</option>
                                                     <option>4ASF</option>
                                                     <option>4BI</option>
-                                                    <option>4BS</option>
                                                     <option>4BM</option>
                                                     <option>4BMF</option>
+                                                    <option>4BS</option>
                                                     <option>5AB</option>
                                                     <option>5AE</option>
                                                     <option>5AI</option>
@@ -138,7 +136,6 @@
                                                     <option>5ASF</option>
                                                     <option>5BI</option>
                                                     <option>5BM</option>
-                                                    <option>5BMS</option>
                                                     <option>5BS</option>
                                                 </select>
                                             </div>
@@ -153,10 +150,15 @@
                                 </div>
 
                                 <div id="classeSelezionata">
-                                    <h4 class="title is-4">Hai selezionato la classe: <span
-                                            id="nomeClasseSelezionata"></span>
-                                    </h4>
-                                    <button class="button is-danger" id="btnCambiaClasse">Cambia Classe</button>
+                                    <div class="columns">
+                                        <div class="column">
+                                            <h4 class="title is-4">Classe: <span id="nomeClasseSelezionata"></span></h4>
+                                        </div>
+                                        <div class="column" style="display: flex; justify-content: end;">
+                                            <button class="button is-danger is-rounded"
+                                                id="btnCambiaClasse">Cambia</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -184,6 +186,12 @@
                                 </div>
                             </div>
                         </div>
+
+                        <article class="message is-success" id="logistica" style="margin-top: 1rem;">
+                            <div class="message-body">
+                                <b>Attenzione:</b> La classe si trova in Plesso Centrale!
+                            </div>
+                        </article>
                     </div>
                     <div class="column">
                         <div class="card">
@@ -238,18 +246,22 @@
 <script src="./js/script.js"></script>
 
 <!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
- 
+<script type="text/javascript">
+    (function (m, e, t, r, i, k, a) {
+        m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+        m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
     ym(76843108, "init", {
-         clickmap:true,
-         trackLinks:true,
-         accurateTrackBounce:true
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true
     });
- </script>
- <noscript><div><img src="https://mc.yandex.ru/watch/76843108" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
- <!-- /Yandex.Metrika counter -->
+</script>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/76843108" style="position:absolute; left:-9999px;" alt="" /></div>
+</noscript>
+<!-- /Yandex.Metrika counter -->
 
 </html>

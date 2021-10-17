@@ -1,14 +1,12 @@
 .bd-notice {
-    background-color: #00d1b2;
+    background-color: #0464b4;
     color: #fff;
     padding: 1em;
     text-align: center;
 }
 
 .bd-notice-body {
-    align-items: center;
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 
 body, html {
@@ -74,4 +72,19 @@ body, html {
     border: solid 1px gray;
     border-radius: 6px;
     margin-bottom: .5rem;
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.lezione-timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lezione-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

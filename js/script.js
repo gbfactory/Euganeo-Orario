@@ -4,7 +4,7 @@ const giorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Ve
 let dataOdierna = new Date().toLocaleDateString().replace('/', '-');
 let dataSelezionata = dataOdierna;
 
-let giornoSelezionato = new Date().getDay();
+let giornoSelezionato = new Date().getDay() === 0 ? 1 : new Date().getDay();
 
 // Contatore slide (utilizzato per offset prima slide selezionata).
 let slidesCounter = 0;
@@ -13,17 +13,18 @@ let slidesCounter = 0;
 for (let d = new Date(2021, 8, 26); d <= new Date(2022, 5, 5); d.setDate(d.getDate() + 1)) {
     const date = d.getDate();
     const month = d.getMonth();
-    const nomeGiorno = giorni[d.getDay()];
+    const numGiorno = d.getDay();
+    const nomeGiorno = giorni[numGiorno];
     const nomeMese = mesi[month];
     const dataIso = d.toLocaleDateString().replace('/', '-');
 
     // Determina se la box è del giorno corrente
     const attiva = dataIso === dataOdierna ? 'box-active' : '';
-    const resetCursore = d.getDay() === 0 ? 'reset-cursore' : '';
+    const resetCursore = numGiorno === 0 ? 'reset-cursore' : '';
 
     // Aggiunge box data
     $('.swiper-wrapper').append(`
-        <div class="box ${attiva} swiper-slide ${resetCursore}" data-day="${d.getDay()}" data-date="${dataIso}">
+        <div class="box ${attiva} swiper-slide ${resetCursore}" data-day="${numGiorno}" data-date="${dataIso}">
             <span class="box-mese">${nomeGiorno.toUpperCase()}</span>
             <span class="box-giorno">${date}</span>
             <span class="box-settimana">${nomeMese}</span>
@@ -41,17 +42,10 @@ const swiper = new Swiper('.swiper-container', {
     spaceBetween: 15,
     initialSlide: slidesCounter - 2,
 
-    // Navigation arrows
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-
     breakpoints: {
         3000: {
             slidesPerView: 10
         },
-
         1425: {
             slidesPerView: 8
         },
@@ -73,12 +67,13 @@ const swiper = new Swiper('.swiper-container', {
 // Inizializzazione
 if (!localStorage.getItem('classe')) {
     $('#classeSelezionata').hide();
-
     $('#orarioClasse').hide();
+    $('#logistica').hide();
+
 } else {
     $('#nomeClasseSelezionata').html(localStorage.getItem('classe'));
-    $('#selezionaClasse').hide();
 
+    $('#selezionaClasse').hide();
     $('#orarioIndefinito').hide();
 }
 
@@ -125,6 +120,8 @@ $('#btnSelClasse').click(function () {
         $('#orarioClasse').show();
         $('#orarioIndefinito').hide();
 
+        $('#logistica').hide();
+
         aggiorna();
     } else {
         Swal.fire({
@@ -147,6 +144,8 @@ $('#btnCambiaClasse').click(function () {
 
     $('#tabellaOrario').html('');
     $('#lezioniOdierne').html('');
+
+    $('#logistica').hide();
 })
 
 // Aggiorna le informazioni in base al giorno
@@ -179,16 +178,58 @@ function aggiorna() {
     const primaOra = oggettoClasse[1][giornoSelezionato];
     const ultimaOra = oggettoClasse[6][giornoSelezionato];
 
-    console.log(primaOra, ultimaOra);
-
     $('#orarioIngresso').html(primaOra === 'Entrata 8:45' ? '8:45' : '7:45');
     $('#orarioIntervallo').html(primaOra === 'Entrata 8:45' ? '11:20 - 11:35' : '10:20 - 10:35');
     $('#orarioUscita').html(ultimaOra === 'Uscita 12:25' ? '12:25' : '13:15');
 
+    // Logistica
+    if (giornoSelezionato === 2) {
+        if (classe === '2BMF' || classe === '5AB') {
+            $('#logistica').show();
+        } else {
+            $('#logistica').hide();
+        }
+    } else if (giornoSelezionato === 3) {
+        if (classe === '1AMF' || classe === '1AOF' || classe === '3AB') {
+            $('#logistica').show();
+        } else {
+            $('#logistica').hide();
+        }
+    } else if (giornoSelezionato === 4) {
+        if (classe === '2AB' || classe === '2AS' || classe === '4AB') {
+            $('#logistica').show();
+        } else {
+            $('#logistica').hide();
+        }
+    } else if (giornoSelezionato === 5) {
+        if (classe === '2AMF') {
+            $('#logistica').show();
+        } else {
+            $('#logistica').hide();
+        }
+    } else {
+        $('#logistica').hide();
+    }
+
     // Orario del giorno
-    $('#lezioniOdierne').html('')
-    oggettoClasse.forEach(element => {
-        $('#lezioniOdierne').append(`<li class="lezione">${element[giornoSelezionato]}</li>`)
+    $('#lezioniOdierne').html('');
+
+    const lezioniOdierne = oggettoClasse.slice(1);
+
+    lezioniOdierne.forEach(element => {
+        const loOra = element[0].split('-')[0].trim();
+        const loLezione = element[giornoSelezionato];
+
+        $('#lezioniOdierne').append(`<li class="lezione">
+                <div class="lezione-timer">
+                    <i class="far fa-clock"></i>
+                    <span>${loOra}</span>
+                </div>
+                <div class="lezione-content">
+                    <span>${loLezione.split('-')[0]}</span>
+                    <i>${loLezione.split('-')[1] != undefined ? loLezione.split('-')[1].replace(';', ' e ') : ''}</i>
+                </div>
+            </li>`);
     });
 }
 
