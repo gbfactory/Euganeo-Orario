@@ -67,6 +67,12 @@ body, html {
     max-height: 2.5rem !important;
 }
 
+.pannello-classe {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .lezione {
     padding: .1rem .5rem;
     border: solid 1px gray;
