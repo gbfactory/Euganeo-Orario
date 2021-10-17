@@ -243,9 +243,9 @@ $('#bottoneInfo').click(function () {
         title: 'Informazioni',
         icon: 'info',
         html:
-            'Sito web realizzato da <b>Giacomo Brochin</b> per gli studenti dell\'IIS Euganeo di Este <br><hr>' +
-            'Le informazioni presenti in questo sito sono ricavate dalle ultime circolari attraverso un software automatico, per tanto potrebbero presentare errori. Per sicurezza consulta sempre le circolari ufficiali presenti nella bacheca del registro elettronico.',
-        footer: 'Supporto e Feedback: <a href="mailto:info@gbfactory.net">info@gbfactory.net</a>',
+            'Sito web realizzato da <b>Giacomo Brochin</b><hr>' +
+            'Le informazioni presenti in questo sito sono ricavate dalle ultime circolari attraverso un software automatico, pertanto potrebbero presentare errori. Per sicurezza consulta sempre le circolari ufficiali presenti nella bacheca del registro elettronico.',
+        footer: '<a href="form.html"><b>Fai una segnalazione!</b></a>',
         showCloseButton: true,
     })
 })

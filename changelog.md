@@ -1,3 +1,6 @@
+17/10/2021 bis
+- Aggiunto modulo segnalazioni
+
 17/10/2021
 - Aggiornamento Orario per la 6° settimana
 - Miglioramento menu "Selezione Classe"
