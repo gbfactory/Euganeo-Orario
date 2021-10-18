@@ -9,6 +9,22 @@ let giornoSelezionato = new Date().getDay() === 0 ? 1 : new Date().getDay();
 // Contatore slide (utilizzato per offset prima slide selezionata).
 let slidesCounter = 0;
 
+// Mostra la navbar se non è webview app
+if (navigator.userAgent != 'EuganeoOrarioApp') {
+    $('.navbar').removeClass('is-hidden');
+}
+
+// Mostra il tasto per scaricare l'app
+if (navigator.userAgent.toLowerCase().indexOf('android') > -1) {
+    $('#scarica-app').html('<a href="market://details?id=net.gbfactory.euganeoorario"><img src="./images/googleplay_it.png" alt="Disponibile su Google Play"></a>');
+}
+
+// Navbar responsiva
+$(".navbar-burger").click(function() {
+    $(".navbar-burger").toggleClass("is-active");
+    $(".navbar-menu").toggleClass("is-active");
+});
+
 // Ciclo per le date da visualizzare
 for (let d = new Date(2021, 8, 26); d <= new Date(2022, 5, 5); d.setDate(d.getDate() + 1)) {
     const date = d.getDate();
@@ -40,7 +56,7 @@ const swiper = new Swiper('.swiper-container', {
     // Optional parameters
     slidesPerView: 10,
     spaceBetween: 15,
-    initialSlide: slidesCounter - 2,
+    initialSlide: slidesCounter - 1,
 
     breakpoints: {
         3000: {
@@ -76,8 +92,6 @@ if (!localStorage.getItem('classe')) {
     $('#selezionaClasse').hide();
     $('#orarioIndefinito').hide();
 }
-
-$('.js-example-basic-single').select2();
 
 aggiorna();
 
@@ -236,16 +250,3 @@ function aggiorna() {
 function zero(num) {
     return ("0" + num).slice(-2);
 }
-
-// Bottone info
-$('#bottoneInfo').click(function () {
-    Swal.fire({
-        title: 'Informazioni',
-        icon: 'info',
-        html:
-            'Sito web realizzato da <b>Giacomo Brochin</b><hr>' +
-            'Le informazioni presenti in questo sito sono ricavate dalle ultime circolari attraverso un software automatico, pertanto potrebbero presentare errori. Per sicurezza consulta sempre le circolari ufficiali presenti nella bacheca del registro elettronico.',
-        footer: '<a href="form.html"><b>Fai una segnalazione!</b></a>',
-        showCloseButton: true,
-    })
-})

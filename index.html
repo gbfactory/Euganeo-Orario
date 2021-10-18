@@ -2,64 +2,41 @@
 <html lang="it">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Euganeo Orario</title>
-    <meta name="description" content="Orario scolastico dell'IIS Euganeo di Este (PD)">
-    <link rel="shortcut icon" href="./images/icona.png" />
-    <!-- ios support -->
-    <link rel="apple-touch-icon" href="images/icons/72.png">
-    <link rel="apple-touch-icon" href="images/icons/96.png">
-    <link rel="apple-touch-icon" href="images/icons/144.png">
-    <link rel="apple-touch-icon" href="images/icons/192.png">
-    <link rel="apple-touch-icon" href="images/icons/512.png">
-    <meta name="apple-mobile-web-app-status-bar" content="#ffd400">
+    <meta name="description" content="Orario delle lezioni dell'IIS Euganeo di Este (PD)">
+    <meta name="author" content="Giacomo Brochin">
     <meta name="theme-color" content="#ffd400">
 
     <meta property="og:title" content="Euganeo Orario">
-    <meta property="og:description" content="Orario scolastico dell'IIS Euganeo di Este (PD)">
-    <meta property="og:site_name" content="Euganeo Orario">
-    <meta property="og:locale" content="it_IT">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://orario.gbfactory.net/">
+    <meta property="og:description" content="Orario delle lezioni dell'IIS Euganeo di Este (PD)">
+    <meta property="og:image" content="./images/icona_orario_512.png">
 
-    <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@0ac23ca/css/all.css" rel="stylesheet"
-        type="text/css" />
+    <link rel="icon" href="./images/icona.png">
+    <link rel="apple-touch-icon" href="./images/icona.png">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@0ac23ca/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- <div class="bd-notice">
-        <div class="bd-notice-body">
-            Applicazione realizzata da <b>Giacomo Brochin</b><br>
-        </div>
-    </div> -->
+    <!-- Header -->
+    <script src="./includes/header.js"></script>
 
-    <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
-        <div class="container">
-            <div class="navbar-brand">
-                <div class="navbar-item">
-                    <img src="./images/logo_nome.png" alt="Logo Euganeo Orario">
-                </div>
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-info is-rounded" id="bottoneInfo">
-                            <i class="fas fa-question"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
+    <!-- Main -->
     <main class="bd-main">
         <div class="container">
-            <div class="section" style="padding-bottom: 1.5rem;">
+            <!-- Banner Play Store -->
+            <div class="scarica-app top-banner" id="scarica-app"></div>
+
+            <!-- Slider con date -->
+            <div class="section" style="padding: 0 1.5rem;">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <!-- Slides date -->
@@ -67,6 +44,7 @@
                 </div>
             </div>
 
+            <!-- Sezione centrale -->
             <div class="section" style="padding-top: 0;">
                 <div class="columns">
                     <div class="column">
@@ -75,13 +53,10 @@
                                 <div id="selezionaClasse">
                                     <h4 class="title is-4">Scegli la classe</h4>
 
-                                    <i>Apri il menu e seleziona la tua classe, oppure scrivila nella barra di
-                                        ricerca.</i>
-
                                     <div class="field">
                                         <div class="control">
-                                            <div class="select is-medium is-multiple is-fullwidth">
-                                                <select class="js-example-basic-single" id="classe" name="classe">
+                                            <div class="select is-medium is-fullwidth">
+                                                <select id="classe" name="classe">
                                                     <option>1A</option>
                                                     <option>1AMF</option>
                                                     <option>1AOF</option>
@@ -207,6 +182,7 @@
                 </div>
             </div>
 
+            <!-- Tabella orario -->
             <div class="section" style="padding-top: 0;">
                 <div class="card">
                     <div class="card-content">
@@ -225,22 +201,14 @@
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p>
-                &copy; 2021 <strong>Giacomo Brochin</strong>
-                <br>
-                Sito web realizzato da <a href="https://giacomobrochin.com/">Giacomo Brochin</a>
-            </p>
-        </div>
-    </footer>
+    <!-- Footer -->
+    <script src="./includes/footer.js"></script>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script src="./js/orario.js"></script>
 <script src="./js/script.js"></script>

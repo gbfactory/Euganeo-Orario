@@ -1,3 +1,8 @@
+body, html {
+    background-color: rgb(235, 238, 243);
+    overflow-x: hidden;
+}
+
 .bd-notice {
     background-color: #0464b4;
     color: #fff;
@@ -9,9 +14,28 @@
     text-align: center;
 }
 
-body, html {
-    background-color: rgb(235, 238, 243);
-    overflow-x: hidden;
+.scarica-app {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.scarica-app.top-banner {
+    padding: 1rem;
+}
+
+.scarica-app img {
+    height: 80px;
+}
+
+.orario-nav-item {
+    display: flex;
+    align-items: center;
+    padding: .5em .75em;
+}
+
+.orario-nav-item .icon {
+    margin-right: .25em;
 }
 
 .box {
