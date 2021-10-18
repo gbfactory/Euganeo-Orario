@@ -9,23 +9,6 @@ let giornoSelezionato = new Date().getDay() === 0 ? 1 : new Date().getDay();
 // Contatore slide (utilizzato per offset prima slide selezionata).
 let slidesCounter = 0;
 
-// Mostra la navbar se non è webview app
-if (navigator.userAgent != 'EuganeoOrarioApp') {
-    $('.navbar').removeClass('is-hidden');
-}
-
-// Mostra il tasto per scaricare l'app
-// ( ! ) disattivato fino a rilascio nuova applicazione react native!
-// if (navigator.userAgent.toLowerCase().indexOf('android') > -1) {
-//     $('#scarica-app').html('<a href="market://details?id=net.gbfactory.euganeoorario"><img src="./images/googleplay_it.png" alt="Disponibile su Google Play"></a>');
-// }
-
-// Navbar responsiva
-$(".navbar-burger").click(function() {
-    $(".navbar-burger").toggleClass("is-active");
-    $(".navbar-menu").toggleClass("is-active");
-});
-
 // Ciclo per le date da visualizzare
 for (let d = new Date(2021, 8, 26); d <= new Date(2022, 5, 5); d.setDate(d.getDate() + 1)) {
     const date = d.getDate();
