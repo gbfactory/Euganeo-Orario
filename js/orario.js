@@ -2376,7 +2376,7 @@ const orario = {
             "Sist. e Automazione - Grigio S.;Manfrin A. - Lab. Autom. Robot o Sto e Geo o Factory 4.0",
             "Storia - Sprocatti E. - CL Tecnologico",
             "Matem. Compl. Mat. - Giusti F. - CL Tecnologico",
-            "Mecc. Macch. Energ. - Toffanin P.;Carta S. - CL Tecnologico",
+            "Mecc. Macch. Energ. - Toffanin P.;Carta S. - CL Tecnologico o Factory 4.0",
             "Tecn.Mecc.Proc.Prod. - Crico L.;Manfrin A. - CL OMU o Tecnologico",
             "Dis. Prog. Org. Ind. - Nese P. - Lab. PC o Sis. e Reti"
         ],
@@ -2387,7 +2387,7 @@ const orario = {
             "Lingua Inglese - Bau' N. - CL Tecnologico",
             "Ling. Lett. Italiana - Sprocatti E. - CL Tecnologico",
             "Ling. Lett. Italiana - Sprocatti E. - CL Tecnologico",
-            "Mecc. Macch. Energ. - Toffanin P.;Carta S. - CL Tecnologico"
+            "Mecc. Macch. Energ. - ;Carta S. - CL Tecnologico"
         ],
         [
             "11.35 - 12.25",
@@ -2400,7 +2400,7 @@ const orario = {
         ],
         [
             "12.25 - 13.15",
-            "Ling. Lett. Italiana - Sprocatti E. - CL Tecnologico",
+            "Tecn.Mecc.Proc.Prod. - Crico L.;Manfrin A. - CL OMU o Tecnologico.",
             "Scien. Mot. e Sport. - Rocca N.",
             "Dis. Prog. Org. Ind. - Nese P.",
             "Lingua Inglese - Bau' N. - CL Tecnologico",
